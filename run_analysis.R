@@ -57,7 +57,7 @@ PersonActivityCombo <- unique.data.frame(TestTrain[,c(1,2)])
 PersonActivityCombo$CombinedKey<- paste(PersonActivityCombo$Activity, '&',PersonActivityCombo$Subject, sep = '')
 
 #Creating an empty DF to put the means of each activity into 
-PersonActivityCombo3<- data.frame(row.names = colnames(TestTrain[-c(1:2)]))
+PersonActivityCombo2<- data.frame(row.names = colnames(TestTrain[-c(1:2)]))
 
 #Function that subsets the main df for each subject and activity combo then creates a new DF of means
 #This DF is then merged with the master DF to contain the means for all of the person/activity combos
@@ -67,11 +67,11 @@ for(combo in PersonActivityCombo$CombinedKey){
   x<- subset(TestTrain, TestTrain$Activity==activity & TestTrain$Subject==person)
   z<- as.data.frame(apply(x[-c(1:2)], MARGIN = 2, mean))
   colnames(z)<- combo
-  PersonActivityCombo3<<- cbind(PersonActivityCombo3,z)
+  PersonActivityCombo2<<- cbind(PersonActivityCombo2,z)
 }
 
-TidyNames<- as.data.frame(rownames(PersonActivityCombo3))
-TidyNames$`rownames(PersonActivityCombo3)`<- sapply(TidyNames$`rownames(PersonActivityCombo3)`, function(x){
+TidyNames<- as.data.frame(rownames(PersonActivityCombo2))
+TidyNames$`rownames(PersonActivityCombo2)`<- sapply(TidyNames$`rownames(PersonActivityCombo2)`, function(x){
   FirstLetter<- substr(x,1,1)
   FirstLetter<- gsub('t', 'Time', FirstLetter)
   FirstLetter<- gsub('f','FrequencyDomainSignals', FirstLetter)
@@ -79,4 +79,4 @@ TidyNames$`rownames(PersonActivityCombo3)`<- sapply(TidyNames$`rownames(PersonAc
   return(Final)
 })
 
-rownames(PersonActivityCombo3)<- TidyNames$`rownames(PersonActivityCombo3)`
+rownames(PersonActivityCombo2)<- TidyNames$`rownames(PersonActivityCombo2)`

@@ -1,0 +1,11 @@
+---
+title: "README"
+output: html_document
+date: '2022-06-10'
+---
+The code first treats test and train separately and creates two data frames containing either all the test data or all the train data 
+These are then named nicely and merged to create a master table with all data 
+The column names are searched for the mean or std deviation and then the data set is filtered so only the columns containing mean/ std dev are kept 
+The activity is then decoded using a lookup table 
+A unique data frame of all the person+activity combos is created then a loop is run which subsets the main data frame for the matching values and calcualtes a mean for each column
+The final part is decoding the f and t 
